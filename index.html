@@ -5,82 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot Interface</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <style>
-        .page{
+        /* Styles généraux */
+        .page {
             padding: 30px;
-            padding-left: 800px;
-            padding-right: 800px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+    
         /* Custom CSS for Chatbot */
         .main-container {
-            box-shadow: ;
-            border: 20px solid black;
-            border-radius: 60px;
+            box-shadow: 10px 10px 20px rgba(10, 9, 9, 0.1);
+            border: 15px solid black;
+            border-radius: 50px;
             display: flex;
             flex-direction: column;
-            height: 800px;
-            width: 450px;
+            height: 600px;
+            width: 100%;
+            max-width: 350px;
             padding: 5px;
+            margin: 0 auto;
         }
-        .torch-container{
+    
+        .torch-container {
             display: flex;
             background-color: black;
             border-radius: 50px;
-            height: 50px;
-            width: 200px;
-            margin-left: 100px;
+            height: 30px;
+            width: 150px;
+            margin: 0 auto;
         }
+    
         .chat-container {
             flex: 1;
             border: 1px solid #ddd;
             border-radius: 22px;
             overflow: hidden;
-            height: 700px;
+            height: 200px;
             display: flex;
             flex-direction: column;
             margin-top: 10px;
         }
+    
         .chat-header {
             background-color: #007bff;
             color: white;
-            padding: 10px;
             text-align: center;
             font-size: 18px;
         }
+    
         .chat-messages {
             flex: 1;
             padding: 10px;
             overflow-y: auto;
             background-color: #f9f9f9;
         }
+    
         .message {
             margin-bottom: 10px;
             padding: 8px 12px;
             border-radius: 5px;
             max-width: 70%;
         }
+    
         .message.user {
             background-color: #007bff;
             color: white;
             margin-left: auto;
         }
+    
         .message.bot {
             background-color: #e9ecef;
             color: black;
             margin-right: auto;
         }
+    
         .chat-input {
             display: flex;
             border-top: 1px solid #ddd;
             background-color: white;
         }
+    
         .chat-input input {
             flex: 1;
             border: none;
             padding: 10px;
             outline: none;
         }
+    
         .chat-input button {
             border: none;
             background-color: #007bff;
@@ -88,24 +101,86 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+    
         /* Style pour l'image */
         .user-profile {
             text-align: center;
-            margin-left: 20px; /* Espacement entre le chatbot et l'image */
+            margin-top: 20px;
         }
+    
         .user-profile img {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             border: 3px solid #007bff;
         }
+    
         .user-profile span {
             display: block;
             margin-top: 10px;
             font-size: 18px;
             font-weight: bold;
         }
+    
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .page {
+                padding-left: 100px;
+                padding-right: 100px;
+            }
+        }
+    
+        @media (max-width: 768px) {
+            .page {
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+    
+            .main-container {
+                height: 600px;
+                width: 90%;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .page {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+    
+            .main-container {
+                height: 500px;
+                width: 100%;
+                max-width: 350px;
+            }
+    
+            .torch-container {
+                width: 150px;
+            }
+    
+            .chat-header {
+                font-size: 16px;
+            }
+    
+            .chat-container {
+                height: 400px;
+            }
+    
+            .chat-input button {
+                padding: 10px;
+            }
+    
+            .user-profile img {
+                width: 100px;
+                height: 100px;
+            }
+    
+            .user-profile span {
+                font-size: 16px;
+            }
+        }
     </style>
+    
 </head>
 <body>
   <section class="page">
@@ -119,7 +194,7 @@
             <div class="chat-header">
             <!-- Nouvelle div pour l'image à droite -->
             <div class="user-profile">
-             <img src="fudicia.jpg" alt="votre assureur santé FudicIA">
+             <img src="img/fudicia.jpg" alt="votre assureur santé FudicIA">
              <span>Votre Assureur santé</span>
             </div>
                 <h1><strong>FudicIA</strong></h1> 
@@ -162,13 +237,94 @@
     
       // Prompt pour spécialiser le bot en topographie
       const prompt = `
-        Tu es un expert en assurance santé. Tu peux aider les utilisateurs à :
-        1. Faire une réclamation et suivre leur remboursement.
-        2. Trouver un centre médical partenaire.
-        3. Répondre aux questions sur les garanties et remboursements.
-        4. Envoyer des rappels pour des documents ou des rendez-vous médicaux.
+        Tu es un expert en assurance santé. Tu peux aider les utilisateurs à repond de facçon précise à leurs questions sur les assurances santé. Voici quelques exemples de questions fréquemment posées soit concis et précis dans tes réponses:
+
+     Question : Mon contrat couvre-t-il les consultations chez un spécialiste sans recommandation médicale ?
+     Réponse : Cela dépend de votre contrat. Certains plans permettent un accès direct aux spécialistes, d'autres non. Veuillez consulter votre assureur pour plus de détails.
+
+      Question : Les traitements à l'étranger sont-ils inclus dans ma couverture ?
+      Réponse : Certains contrats incluent les soins à l'étranger, mais il est essentiel de vérifier les conditions spécifiques, telles que les limites géographiques et les types de soins couverts.
+
+      Question : Puis-je ajouter mes enfants ou mon conjoint à ma police d'assurance actuelle ?
+      Réponse : Oui, il est généralement possible d'ajouter des membres de la famille à votre contrat, moyennant des frais supplémentaires.
+
+      Question : Quels sont les documents nécessaires pour faire une demande de remboursement ?
+      Réponse : Vous aurez besoin des factures originales, d'une ordonnance (si applicable), et du formulaire de demande de remboursement dûment rempli.
+
+     Question : Quels sont les délais pour le traitement des demandes de remboursement ?
+     Réponse : Le traitement prend généralement entre 10 et 15 jours ouvrables, bien que cela puisse varier selon l'assureur.
+
+     Question : Les soins alternatifs, comme l'acupuncture ou l'ostéopathie, sont-ils remboursés ?
+     Réponse : Certains contrats couvrent les soins alternatifs, mais cela dépend du niveau de garantie souscrit.
+
+         Question : Comment puis-je savoir si un médicament spécifique est couvert par mon contrat ?
+         Réponse : Vous pouvez vérifier la liste des médicaments couverts dans votre espace client ou contacter votre conseiller.
+
+         Question : Qu'arrive-t-il si je change de travail ou de pays ? Puis-je conserver mon assurance ?
+         Réponse : La plupart des assurances santé privées sont transférables, mais des ajustements peuvent être nécessaires selon votre nouvelle situation.
+
+         Question : Puis-je ajuster ma couverture si mes besoins changent ?
+         Réponse : Oui, de nombreux contrats permettent d'ajuster la couverture, par exemple en ajoutant des garanties ou en augmentant le plafond de remboursement.
+
+         Question : Quels sont les cas d’exclusion dans mon contrat d’assurance ?
+         Réponse : Les exclusions peuvent inclure les maladies préexistantes non déclarées, les traitements cosmétiques non médicaux, ou les accidents liés à des activités à haut risque. Consultez les conditions générales pour plus de précisions.
+
+         Question : Y a-t-il un plafond annuel ou par acte médical pour les remboursements ?
+         Réponse : Oui, la plupart des contrats ont des plafonds annuels ou des limites spécifiques pour certains actes médicaux.
+
+         Question : Quels sont les avantages fiscaux liés à mon assurance santé ?
+         Réponse : Dans certains cas, les primes d'assurance santé peuvent être déductibles des impôts. Contactez un conseiller fiscal pour plus de détails.
+
+         Question : Que faire en cas d’urgence médicale en dehors des heures d’ouverture ?
+         Réponse : Vous pouvez contacter une ligne d'assistance ou vous rendre dans un établissement de soins d'urgence. Vos frais seront remboursés si l'incident est couvert.
+
+         Question : Les services de téléconsultation sont-ils inclus ?
+         Réponse : Beaucoup d’assurances incluent des services de téléconsultation pour un accès pratique aux soins médicaux.
+
+         Question : Comment puis-je résilier mon contrat si je ne suis pas satisfait ?
+         Réponse : Vous devez envoyer une lettre recommandée et respecter un préavis, souvent d'un ou deux mois, selon les termes de votre contrat.
+
+         Question : Ma cotisation augmentera-t-elle avec l’âge ?
+         Réponse : Oui, certaines polices ajustent les primes en fonction de l’âge, mais cela est spécifié dans les conditions du contrat.
+
+         Faire une réclamation et suivre leur remboursement
+         Réponse : Pour faire une réclamation concernant votre remboursement, nous vous conseillons de contacter votre centre médical partenaire, tel que Polyclinique de l'Indénié ou Clinique la Providence, et de leur transmettre les documents nécessaires. Vous pouvez également suivre l'état de votre demande de remboursement en vous rendant dans les pharmacies partenaires comme Pharmacie de la Gare ou Pharmacie Saint-Cyr.
+
+         Trouver un centre médical partenaire
+         Réponse : Vous pouvez consulter nos centres médicaux partenaires tels que Polyclinique Sainte Anne-Marie, Clinique la Providence, ou Centre Médical de la Riviera. Ils offrent une large gamme de soins et sont inscrits dans notre réseau. Vous pouvez également vérifier leur disponibilité et les services spécifiques proposés via notre plateforme.
+
+         Répondre aux questions sur les garanties et remboursements
+         Réponse : Pour toute question sur vos garanties ou remboursements, vous pouvez contacter Pharmacie de la Gare ou Pharmacie Saint-Cyr, qui sont partenaires et bien informées sur les conditions de remboursement et les détails de votre couverture. Nos conseillers sont également à votre disposition pour répondre à toute autre question.
+
+         Envoyer des rappels pour des documents ou des rendez-vous médicaux
+         Réponse : Nous envoyons régulièrement des rappels pour les documents manquants ou les rendez-vous médicaux importants. Si vous avez un rendez-vous dans un de nos centres partenaires comme Polyclinique de l'Indénié ou Clinique la Providence, vous recevrez des rappels via SMS ou email pour vous assurer que tout est en ordre pour votre consultation.
+
+        Ces suggestions garantissent un service efficace et direct tout en mettant en valeur des cliniques et pharmacies locales.
+
+        Faire une réclamation et suivre leur remboursement
+        Réponse : Pour faire une réclamation concernant votre remboursement, nous vous conseillons de contacter votre centre médical partenaire, tel que Polyclinique de l'Indénié située à Abidjan, Yopougon, Avenue N’Zima, ou Clinique la Providence à Abidjan, Cocody, Rue des Jardins. Vous pouvez également suivre l'état de votre demande de remboursement en vous rendant dans les pharmacies partenaires comme Pharmacie de la Gare à Abidjan, Plateau, ou Pharmacie Saint-Cyr à Abidjan, Marcory.
+
+         Trouver un centre médical partenaire, des cliniques ou des pharmacies
+         Réponse : Vous pouvez consulter nos centres médicaux partenaires tels que :
+
+         Polyclinique Sainte Anne-Marie, Abidjan, Abobo, Quartier Niangon,
+         Clinique la Providence, Abidjan, Cocody, Rue des Jardins,
+         Centre Médical de la Riviera, Abidjan, Riviera 3, Boulevard de France.
+         Ces centres offrent une large gamme de soins. Vous pouvez également vérifier leur disponibilité et les services spécifiques proposés via notre plateforme.
+
+         Répondre aux questions sur les garanties et remboursements
+         Réponse : Pour toute question sur vos garanties ou remboursements, vous pouvez contacter Pharmacie de la Gare située à Abidjan, Plateau, ou Pharmacie Saint-Cyr à Abidjan, Marcory. Nos conseillers sont également disponibles pour répondre à toute autre question.
+
+         Envoyer des rappels pour des documents ou des rendez-vous médicaux
+         Réponse : Nous envoyons régulièrement des rappels pour les documents manquants ou les rendez-vous médicaux importants. Si vous avez un rendez-vous dans un de nos centres partenaires comme Polyclinique de l'Indénié à Yopougon ou Clinique la Providence à Cocody, vous recevrez des rappels via SMS ou email pour vous assurer que tout est en ordre pour votre consultation.
+
+         Si vous souhaitez parler à un humain ou à une personne spécifique :Réponse : Si vous avez besoin de parler à un médecin conseil ou à une responsable sinistre, vous pouvez contacter directement :
+          Dr. François Kouadio, Médecin Conseil, à Tél : +225 01 23 45 67 89,
+          Mme. Marie Koffi, Responsable Sinistre, à Tél : +225 07 89 01 23 45.
+          Ils sont disponibles pour répondre à toutes vos préoccupations médicales ou liées aux sinistres.
 
         Si une question est hors de ce domaine, informe l'utilisateur poliment.
+        
         `;
     
       // Fonction pour envoyer un message à l'API et obtenir une réponse
